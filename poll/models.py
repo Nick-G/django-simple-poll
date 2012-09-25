@@ -1,22 +1,25 @@
 # -*- coding: utf-8 -*-
 
-import datetime
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
 from django.db.models.manager import Manager
 from django.core.exceptions import ValidationError
 
+from hvad.models import TranslatableModel, TranslatedFields
 
 class PublishedManager(Manager):
     def get_query_set(self):
         return super(PublishedManager, self).get_query_set().filter(is_published=True)
 
-class Poll(models.Model):
-    title = models.CharField(max_length=250, verbose_name=_('question'))
-    date = models.DateField(verbose_name=_('date'), default=datetime.date.today)
-    is_published = models.BooleanField(default=True, verbose_name=_('is published'))
-    
+class Poll(TranslatableModel):
+    date = models.DateField(auto_now_add=True)
+
+    translations = TranslatedFields(
+        title = models.CharField(max_length=250, verbose_name=_('question'))
+        is_published = models.BooleanField(default=True, verbose_name=_('is published'))
+    )
+
     objects = models.Manager()
     published = PublishedManager()
 
@@ -36,10 +39,13 @@ class Poll(models.Model):
         return str('poll_%s' % (self.pk)) 
     
 
-class Item(models.Model):
-    poll = models.ForeignKey(Poll)
-    value = models.CharField(max_length=250, verbose_name=_('value'))
+class Item(TranslatableModel):
+    poll = models.ForeignKey(Poll, verbose_name=_('poll'))
     pos = models.SmallIntegerField(default='0', verbose_name=_('position'))
+
+    translations = TranslatedFields(
+        value = models.CharField(max_length=250, verbose_name=_('value'))
+    )
     
     class Meta:
         verbose_name = _('answer')

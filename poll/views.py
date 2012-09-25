@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext, loader
 from django.db import transaction
 from django.utils import simplejson
-from utils import set_cookie
+# from utils import set_cookie
 from poll.models import *
 
 def vote(request, poll_pk):
@@ -37,7 +37,7 @@ def vote(request, poll_pk):
         )
         
         response = HttpResponse(status=200)
-        set_cookie(response, poll.get_cookie_name(), poll_pk)
+        #set_cookie(response, poll.get_cookie_name(), poll_pk)
         
         return response
     return HttpResponse(status=400)
