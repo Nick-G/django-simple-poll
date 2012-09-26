@@ -7,20 +7,29 @@ from django.db.models.manager import Manager
 from django.core.exceptions import ValidationError
 
 from hvad.models import TranslatableModel, TranslatedFields
+from hvad.manager import TranslationManager
 
-class PublishedManager(Manager):
+
+
+class PublishedManager(TranslationManager):
     def get_query_set(self):
-        return super(PublishedManager, self).get_query_set().filter(is_published=True)
+        return super(PublishedManager, self).get_query_set().filter(is_published='T')
 
 class Poll(TranslatableModel):
+    # Add this hack because of broken BooleanField in MySQL when using hvad app
+    PUBLISH_CHOICES = (
+        ('T', 'True'),
+        ('F', 'False'),
+    )
+
     date = models.DateField(auto_now_add=True)
+    is_published = models.CharField(max_length=10, default='True', verbose_name=_('is published'), choices=PUBLISH_CHOICES)
 
     translations = TranslatedFields(
         title = models.CharField(max_length=250, verbose_name=_('question')),
-        is_published = models.BooleanField(default=True, verbose_name=_('is published')),
     )
 
-    objects = models.Manager()
+    objects = TranslationManager()
     published = PublishedManager()
 
     class Meta:

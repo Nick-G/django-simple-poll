@@ -4,8 +4,7 @@
 {% load poll_tags %}
 
 {% block poll_content %}
-<div class="poll_style">
-	<p class="title">{{ poll.title }}</p>
+<h2 class="title">{{ poll.title }}</h2>
 	<ul>
 		{% for i in items %}
 		<li>{{ i.value }}: <b>{% filter floatformat %}{% percentage poll i %}{% endfilter %}%</b><br>
@@ -14,5 +13,4 @@
 		{% endfor %}
 	</ul>
 	<p>{% trans "Total votes" %}: <b>{{ poll.get_vote_count }}</b></p><br>
-</div>
 {% endblock %}

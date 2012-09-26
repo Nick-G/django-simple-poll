@@ -28,16 +28,14 @@
 {% endblock %}
 
 {% block poll_content %}
-<div class="poll_style">
-	<form method="GET" id="poll_form">
-		<p class="title">{{ poll.title }}</p>
+<form method="GET" id="poll_form">
+	<h2 class="title">{{ poll.title }}</h2>
 		<ul>
 			{% for i in items %}
 			<li><input type="radio" name="item" id="item_{{ i.id }}" value="{{ i.id }}" /> 
 				<label for="item_{{ i.id }}">{{ i.value }}</label></li> 
-			{% endfor %}
-		</ul>                        
-		<p class="poll_send"><input type="button" id="poll_send" value="{% trans "Vote" %}" /></p>
-	</form>
-</div>	
+		{% endfor %}
+	</ul>                        
+	<p class="poll_send"><input type="button" id="poll_send" value="{% trans "Vote" %}" /></p>
+</form>
 {% endblock %}

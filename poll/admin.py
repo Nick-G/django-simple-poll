@@ -1,16 +1,22 @@
 from django.contrib import admin
 from poll.models import *
 from django.utils.translation import gettext as _
+from hvad.admin import TranslatableAdmin
 
 class PollItemInline(admin.TabularInline):
     model = Item
     extra = 0
     max_num = 15
 
-class PollAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'vote_count', 'is_published')
-    inlines = [PollItemInline,]
+class PollAdmin(TranslatableAdmin):
+    #list_display = ('title', 'date', 'vote_count', 'is_published')
+    #inlines = [PollItemInline,]
+    pass
 
+class ItemAdmin(TranslatableAdmin):
+	pass
+
+admin.site.register(Item, ItemAdmin)
 admin.site.register(Poll, PollAdmin)
 
 

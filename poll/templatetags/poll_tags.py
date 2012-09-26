@@ -9,12 +9,11 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def poll(context):
     request = context['request']
-
     try:
         poll = Poll.published.latest("date")
     except:
         return ''
-    
+
     if poll.get_cookie_name() not in request.COOKIES:
         return views.poll(context['request'], poll.id).content
     else:
