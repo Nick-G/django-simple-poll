@@ -16,8 +16,8 @@ class Poll(TranslatableModel):
     date = models.DateField(auto_now_add=True)
 
     translations = TranslatedFields(
-        title = models.CharField(max_length=250, verbose_name=_('question'))
-        is_published = models.BooleanField(default=True, verbose_name=_('is published'))
+        title = models.CharField(max_length=250, verbose_name=_('question')),
+        is_published = models.BooleanField(default=True, verbose_name=_('is published')),
     )
 
     objects = models.Manager()
@@ -44,7 +44,7 @@ class Item(TranslatableModel):
     pos = models.SmallIntegerField(default='0', verbose_name=_('position'))
 
     translations = TranslatedFields(
-        value = models.CharField(max_length=250, verbose_name=_('value'))
+        value = models.CharField(max_length=250, verbose_name=_('value')),
     )
     
     class Meta:
