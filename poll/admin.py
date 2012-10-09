@@ -7,6 +7,7 @@ class PollItemInline(TranslatableTabularInline):
     model = Item
     extra = 0
     max_num = 15
+    list_display = ['pos', ]
 
 
 class PollAdmin(TranslatableAdmin):

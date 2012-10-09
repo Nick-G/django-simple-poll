@@ -35,7 +35,8 @@ def vote(request, poll_pk):
             user=user,
             item=item,
         )
-        
+        item.number += 1
+        item.save()
         response = HttpResponse(status=200)
         set_cookie(response, poll.get_cookie_name(), poll_pk)
         

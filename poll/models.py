@@ -51,6 +51,7 @@ class Poll(TranslatableModel):
 class Item(TranslatableModel):
     poll = models.ForeignKey(Poll, verbose_name=_('poll'))
     pos = models.SmallIntegerField(default='0', verbose_name=_('position'))
+    number = models.PositiveIntegerField(default='0', verbose_name=_('vote count'))
 
     translations = TranslatedFields(
         value = models.CharField(max_length=250, verbose_name=_('value')),
