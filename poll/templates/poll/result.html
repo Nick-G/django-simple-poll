@@ -4,11 +4,11 @@
 {% load poll_tags %}
 
 {% block poll_content %}
-<h2 class="title">{{ poll.title }}</h2>
+<h3 class="title">{{ poll.title }}</h3>
 	<ul>
 		{% for i in items %}
 		<li>{{ i.value }}: <b>{% filter floatformat %}{% percentage poll i %}{% endfilter %}%</b><br>
-			<div style="background: #D1B692; border: 1px solid #AD8346; height: 8px; width: {% percentage poll i %}%;"></div>
+			<div style="margin-top: 2px; margin-bottom: 2px; background: #017cbe; border: 1px solid #AD8346; height: 8px; width: {% percentage poll i %}%;"></div>
 		</li> 
 		{% endfor %}
 	</ul>
